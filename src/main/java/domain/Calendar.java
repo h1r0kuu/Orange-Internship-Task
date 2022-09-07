@@ -41,12 +41,17 @@ import java.util.Objects;
             return plannedMeeting;
         }
 
+        public Interval getFirstAvailableInterval() {
+            return new Interval(getWorkingHours().getStart(), getPlannedMeeting().get(0).getStart());
+        }
+
         public Interval getLastAvailableInterval() {
             return new Interval(getPlannedMeeting().get(getPlannedMeeting().size() - 1).getEnd(), getWorkingHours().getEnd());
         }
 
         public List<Interval> getAvailableIntervals() {
             List<Interval> availableHours = new ArrayList<>();
+            availableHours.add(getFirstAvailableInterval());
             for(int i = 0; i < plannedMeeting.size() - 1; i++) {
                 LocalTime currIntervalEnd = plannedMeeting.get(i).getEnd();
                 LocalTime nextIntervalStart = plannedMeeting.get(i + 1).getStart();
