@@ -36,10 +36,8 @@ public class Interval {
     public static LocalTime min(LocalTime first, LocalTime second) {return timeToMin(first) < timeToMin(second) ? first : second;}
 
     public boolean hasIntersection(Interval another) {
-        return getStart().isBefore(another.getStart()) && getEnd().isAfter(another.getStart()) ||
-               getStart().isBefore(another.getEnd()) && getEnd().isAfter(another.getEnd()) ||
-               getStart().isBefore(another.getStart()) && getEnd().isAfter(another.getEnd()) ||
-               getStart().isAfter(another.getStart()) && getEnd().isBefore(another.getEnd());
+        return getStart().isBefore(another.getEnd()) &&
+               another.getStart().isBefore(getEnd());
     }
 
     public Interval getIntersection(Interval another) {
